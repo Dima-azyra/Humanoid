@@ -17,12 +17,12 @@ public class Control : MonoBehaviour
     [SerializeField] GameObject step_right;
     [SerializeField] GameObject prefab_steps;
     [SerializeField] GameObject main_collider;
-    [SerializeField] GameObject trigger_collider;
+    [SerializeField] GameObject trigger_collider;    
     bool stop;
     Rigidbody rb;
     bool is_ground;
     Vector3 save_position;
-    float min_distance = 0.5f;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -57,11 +57,11 @@ public class Control : MonoBehaviour
         }
         else if ((Input.GetKey(KeyCode.W) || left.Direction.y > 0.3)  && (Input.GetKey(KeyCode.Space) || jump.push) && !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Run_jump") && is_ground)
         {
-            anim.Play("Run_jump", 0);
+            if (!stop) anim.Play("Run_jump", 0);
         }
         else if ((Input.GetKey(KeyCode.Space) || jump.push) && !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Run_jump") && is_ground)
         {
-            anim.Play("Jump", 0);
+            if (!stop) anim.Play("Jump", 0);
         }
         else if ((aim.push) && (Input.GetKey(KeyCode.W) || left.Direction.y > 0.3) && !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Run_jump") && is_ground)
         {
